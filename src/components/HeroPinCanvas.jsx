@@ -26,46 +26,59 @@ export default function HeroPinCanvas() {
 
   const imagesRef = useRef([]);
 
-  // Preload and hardware-decode all 30 frames to eliminate paint jank during scroll loop (§1 & §11)
+  // 1. Robust Preload Gate: Preload & decode all 30 frames before rendering (§1)
   useEffect(() => {
     let isMounted = true;
-    let loadedCount = 0;
     const loadedImages = [];
 
-    const loadAndDecodeFrames = async () => {
-      for (let i = 1; i <= TOTAL_FRAMES; i++) {
-        const frameNum = String(i).padStart(3, '0');
+    const loadSingleFrame = (src) => {
+      return new Promise((resolve) => {
         const img = new Image();
-        img.src = `/sequence/frame_${frameNum}.webp`;
+        img.src = src;
 
-        // Hardware bitmap pre-decoding into GPU memory
-        try {
-          await img.decode();
-        } catch (e) {
-          // Fallback if decode is not supported or rejected
-        }
-
-        loadedImages.push(img);
-        loadedCount++;
-
-        if (isMounted) {
-          setLoadProgress(Math.round((loadedCount / TOTAL_FRAMES) * 100));
-          if (loadedCount === TOTAL_FRAMES) {
-            setImagesLoaded(true);
+        const onComplete = async () => {
+          try {
+            await img.decode();
+          } catch (e) {
+            // fallback if decode is unsupported or already decoded
           }
+          resolve(img);
+        };
+
+        if (img.complete) {
+          onComplete();
+        } else {
+          img.onload = onComplete;
+          img.onerror = () => resolve(img);
         }
-      }
-      imagesRef.current = loadedImages;
+      });
     };
 
-    loadAndDecodeFrames();
+    const loadAllFrames = async () => {
+      for (let i = 1; i <= TOTAL_FRAMES; i++) {
+        const frameNum = String(i).padStart(3, '0');
+        const img = await loadSingleFrame(`/sequence/frame_${frameNum}.webp`);
+        loadedImages.push(img);
+
+        if (isMounted) {
+          setLoadProgress(Math.round((i / TOTAL_FRAMES) * 100));
+        }
+      }
+
+      if (isMounted) {
+        imagesRef.current = loadedImages;
+        setImagesLoaded(true);
+      }
+    };
+
+    loadAllFrames();
 
     return () => {
       isMounted = false;
     };
   }, []);
 
-  // GSAP ScrollTrigger canvas scrubbing & 4-phase 15% text card transitions
+  // 2. GSAP ScrollTrigger canvas scrubbing & text phase transitions (§2 & §4)
   useEffect(() => {
     if (!imagesLoaded || !canvasRef.current || !containerRef.current) return;
 
@@ -75,6 +88,7 @@ export default function HeroPinCanvas() {
 
       const resizeCanvas = () => {
         if (!canvas) return;
+        // 4. Clamp Device Pixel Ratio (§4)
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
         const displayWidth = canvas.clientWidth;
         const displayHeight = canvas.clientHeight;
@@ -101,7 +115,7 @@ export default function HeroPinCanvas() {
         canvasCtx.scale(dpr, dpr);
         canvasCtx.clearRect(0, 0, displayWidth, displayHeight);
 
-        // object-fit: cover math with ZOOM_FACTOR & VERTICAL_OFFSET_Y to crop watermark cleanly (§16)
+        // object-fit: cover math with ZOOM_FACTOR & VERTICAL_OFFSET_Y to crop watermark cleanly
         const imgRatio = img.naturalWidth / img.naturalHeight;
         const containerRatio = displayWidth / displayHeight;
         let drawWidth, drawHeight;
@@ -132,10 +146,10 @@ export default function HeroPinCanvas() {
         });
       };
 
-      // Initial frame render
+      // Render initial frame
       requestFrameRender(0, true);
 
-      // Instant 1:1 real-time scrub (scrub: true) for 0ms latency (§1)
+      // 2. Direct 1:1 ScrollTrigger Scrub (scrub: true) for zero-lag responsiveness (§2)
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
@@ -154,7 +168,7 @@ export default function HeroPinCanvas() {
         },
       });
 
-      // 15% Scroll Window Per Message with Mirrored Easing Curves (§3 & §7):
+      // 15% Scroll Phase Windows:
       // Phase 1 (Intro): 0% to 15% (Fades out 15% -> 20%)
       tl.to(
         phase1Ref.current,
@@ -168,7 +182,7 @@ export default function HeroPinCanvas() {
         0.15
       );
 
-      // Phase 2 (Spine & Joints): 20% to 35% (Fades in 20%, Fades out 35% -> 40%)
+      // Phase 2 (Spine & Joints): 20% to 35%
       tl.fromTo(
         phase2Ref.current,
         { opacity: 0, y: 30, scale: 0.96 },
@@ -181,7 +195,7 @@ export default function HeroPinCanvas() {
         0.35
       );
 
-      // Phase 3 (Neuromuscular & Gastric): 40% to 55% (Fades in 40%, Fades out 55% -> 60%)
+      // Phase 3 (Neuromuscular & Gastric): 40% to 55%
       tl.fromTo(
         phase3Ref.current,
         { opacity: 0, y: 30, scale: 0.96 },
@@ -194,7 +208,7 @@ export default function HeroPinCanvas() {
         0.55
       );
 
-      // Phase 4 (CTA Booking Card): 60% to 100% (Fades in 60%, remains visible to end)
+      // Phase 4 (CTA Booking Card): 60% to 100%
       tl.fromTo(
         phase4Ref.current,
         { opacity: 0, y: 30, scale: 0.96 },
@@ -221,15 +235,9 @@ export default function HeroPinCanvas() {
     'Hi Magical Touch AcuHealth, I would like to book an Acupressure Consultation.'
   )}`;
 
-  // Glass Card Material Inline Style (§12 Materials, Depth & Translucency)
-  const glassCardStyle = {
-    background: 'rgba(255, 255, 255, 0.85)',
-    backdropFilter: 'blur(20px) saturate(180%)',
-    WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-    borderTop: '1px solid rgba(255, 255, 255, 0.6)',
-    borderLeft: '1px solid rgba(255, 255, 255, 0.5)',
-    borderRight: '1px solid rgba(255, 255, 255, 0.5)',
-    borderBottom: '1px solid rgba(255, 255, 255, 0.4)',
+  // 3. Remove GPU Repaint Shaders: Solid high-contrast surface without backdrop-filter blur (§3)
+  const solidCardStyle = {
+    backgroundColor: 'rgba(255, 255, 255, 0.97)',
   };
 
   return (
@@ -237,13 +245,15 @@ export default function HeroPinCanvas() {
       {/* Pinned Scroll Wrapper */}
       <div ref={stickyRef} className="h-screen w-full overflow-hidden bg-[#F5F5F7] flex items-center justify-center relative">
         
-        {/* Preloader Overlay */}
+        {/* Sleek Minimal Preloader Indicator (§1) */}
         {!imagesLoaded && (
           <div className="absolute inset-0 z-50 bg-[#F5F5F7] flex flex-col items-center justify-center p-6">
             <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mb-4 animate-pulse">
               <Activity className="w-7 h-7 text-emerald-600" />
             </div>
-            <h3 className="text-xl font-bold text-[#1D1D1F] mb-2 font-heading">Initializing 3D Sequence</h3>
+            <h3 className="text-xl font-bold text-[#1D1D1F] mb-2 font-heading tracking-tight">
+              Loading 3D Experience...
+            </h3>
             <div className="w-64 h-2 bg-slate-200 rounded-full overflow-hidden border border-slate-300">
               <div
                 className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-200"
@@ -254,7 +264,7 @@ export default function HeroPinCanvas() {
           </div>
         )}
 
-        {/* Clean Crisp Full-Screen Canvas Layer (No Murky Vignette Masks) */}
+        {/* Clean Crisp Full-Screen Canvas Layer */}
         <div className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-hidden flex items-center justify-center">
           <canvas
             ref={canvasRef}
@@ -262,16 +272,16 @@ export default function HeroPinCanvas() {
           />
         </div>
 
-        {/* 4-Phase Translucent Glass Material Cards (§12 & §15 Typography) */}
+        {/* 4-Phase Cards: Solid High-Contrast Surface (§3) */}
         <div className="relative z-30 max-w-xl mx-auto px-4 sm:px-6 w-full text-center pointer-events-auto">
           
           {/* Phase 1 (Intro: 0% - 15%) */}
           <div
             ref={phase1Ref}
-            style={glassCardStyle}
-            className="p-8 sm:p-10 rounded-[32px] shadow-2xl space-y-5 text-center mx-auto"
+            style={solidCardStyle}
+            className="p-8 sm:p-10 rounded-[32px] border border-slate-200/80 shadow-xl space-y-5 text-center mx-auto"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
               <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
               ANCIENT TECHNIQUE FOR MODERN PROBLEMS
             </div>
@@ -286,7 +296,7 @@ export default function HeroPinCanvas() {
 
             <div className="pt-2 flex items-center justify-center gap-2 text-xs font-bold text-slate-700">
               <Award className="w-4 h-4 text-emerald-600" />
-              <span className="px-3.5 py-1.5 rounded-full bg-slate-100/90 border border-slate-200/80">
+              <span className="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200/80">
                 15+ Years Clinical Experience
               </span>
             </div>
@@ -295,10 +305,10 @@ export default function HeroPinCanvas() {
           {/* Phase 2 (Spine & Joints: 20% - 35%) */}
           <div
             ref={phase2Ref}
-            style={glassCardStyle}
-            className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 p-8 sm:p-10 rounded-[32px] shadow-2xl space-y-5 text-center opacity-0 pointer-events-none"
+            style={solidCardStyle}
+            className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 p-8 sm:p-10 rounded-[32px] border border-slate-200/80 shadow-xl space-y-5 text-center opacity-0 pointer-events-none"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               SPINAL &amp; JOINT DECOMPRESSION
             </div>
@@ -313,7 +323,7 @@ export default function HeroPinCanvas() {
 
             <div className="pt-2 flex items-center justify-center gap-2 text-xs font-bold text-slate-700">
               <Users className="w-4 h-4 text-emerald-600" />
-              <span className="px-3.5 py-1.5 rounded-full bg-slate-100/90 border border-slate-200/80">
+              <span className="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200/80">
                 Non-Surgical Spinal Recovery
               </span>
             </div>
@@ -322,10 +332,10 @@ export default function HeroPinCanvas() {
           {/* Phase 3 (Neuromuscular & Gastric: 40% - 55%) */}
           <div
             ref={phase3Ref}
-            style={glassCardStyle}
-            className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 p-8 sm:p-10 rounded-[32px] shadow-2xl space-y-5 text-center opacity-0 pointer-events-none"
+            style={solidCardStyle}
+            className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 p-8 sm:p-10 rounded-[32px] border border-slate-200/80 shadow-xl space-y-5 text-center opacity-0 pointer-events-none"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
               <HeartPulse className="w-3.5 h-3.5 text-emerald-600" />
               NEUROMUSCULAR &amp; METABOLIC VITALITY
             </div>
@@ -340,7 +350,7 @@ export default function HeroPinCanvas() {
 
             <div className="pt-2 flex items-center justify-center gap-2 text-xs font-bold text-slate-700">
               <Activity className="w-4 h-4 text-emerald-600" />
-              <span className="px-3.5 py-1.5 rounded-full bg-slate-100/90 border border-slate-200/80">
+              <span className="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200/80">
                 Holistic Organ &amp; Meridian Reset
               </span>
             </div>
@@ -349,10 +359,10 @@ export default function HeroPinCanvas() {
           {/* Phase 4 (CTA Booking Card: 60% - 100%) */}
           <div
             ref={phase4Ref}
-            style={glassCardStyle}
-            className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 p-8 sm:p-10 rounded-[32px] shadow-2xl space-y-5 text-center opacity-0 pointer-events-none"
+            style={solidCardStyle}
+            className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 p-8 sm:p-10 rounded-[32px] border border-slate-200/80 shadow-xl space-y-5 text-center opacity-0 pointer-events-none"
           >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50/90 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
               <Stethoscope className="w-3.5 h-3.5 text-emerald-600" />
               HOLISTIC CLINICAL CONSULTATION
             </div>

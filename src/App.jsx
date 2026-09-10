@@ -21,10 +21,10 @@ export default function App() {
   useEffect(() => {
     // Lenis high-performance smooth scroll setup synchronized with GSAP ScrollTrigger
     const lenis = new Lenis({
-      duration: 0.8,
+      duration: 0.9,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      wheelMultiplier: 1.0,
+      wheelMultiplier: 0.9,
       touchMultiplier: 1.5,
     });
 
