@@ -1,394 +1,192 @@
-import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Sparkles, MessageCircle, Activity, ShieldCheck, Award, Users, HeartPulse, Stethoscope, ArrowRight } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
-
-const TOTAL_FRAMES = 30;
-const ZOOM_FACTOR = 1.15; // 15% zoom factor to crop watermark off-screen
-const VERTICAL_OFFSET_Y = -25; // Negative vertical shift pushing watermark outside bounds
+import React, { useState, useRef } from 'react';
+import { ArrowUpRight, MessageCircle, Play, Pause, RotateCcw } from 'lucide-react';
+import { ShinyText, BlurText, Magnet, SpotlightCard, CountUp, Squares } from './reactbits';
 
 export default function HeroPinCanvas() {
-  const containerRef = useRef(null);
-  const stickyRef = useRef(null);
-  const canvasRef = useRef(null);
-  const lastFrameRef = useRef(-1);
-  const rafIdRef = useRef(null);
+  const [videoSource, setVideoSource] = useState('hero_clean.mp4');
+  const [isPlaying, setIsPlaying] = useState(true);
+  const videoRef = useRef(null);
 
-  const phase1Ref = useRef(null);
-  const phase2Ref = useRef(null);
-  const phase3Ref = useRef(null);
-  const phase4Ref = useRef(null);
-
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [loadProgress, setLoadProgress] = useState(0);
-
-  const imagesRef = useRef([]);
-
-  // 1. Robust Preload Gate: Preload & decode all 30 frames before rendering (§1)
-  useEffect(() => {
-    let isMounted = true;
-    const loadedImages = [];
-
-    const loadSingleFrame = (src) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.src = src;
-
-        const onComplete = async () => {
-          try {
-            await img.decode();
-          } catch (e) {
-            // fallback if decode is unsupported or already decoded
-          }
-          resolve(img);
-        };
-
-        if (img.complete) {
-          onComplete();
-        } else {
-          img.onload = onComplete;
-          img.onerror = () => resolve(img);
-        }
-      });
-    };
-
-    const loadAllFrames = async () => {
-      for (let i = 1; i <= TOTAL_FRAMES; i++) {
-        const frameNum = String(i).padStart(3, '0');
-        const img = await loadSingleFrame(`/sequence/frame_${frameNum}.webp`);
-        loadedImages.push(img);
-
-        if (isMounted) {
-          setLoadProgress(Math.round((i / TOTAL_FRAMES) * 100));
-        }
-      }
-
-      if (isMounted) {
-        imagesRef.current = loadedImages;
-        setImagesLoaded(true);
-      }
-    };
-
-    loadAllFrames();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  // 2. GSAP ScrollTrigger canvas scrubbing & text phase transitions (§2 & §4)
-  useEffect(() => {
-    if (!imagesLoaded || !canvasRef.current || !containerRef.current) return;
-
-    const ctx = gsap.context(() => {
-      const canvas = canvasRef.current;
-      const canvasCtx = canvas.getContext('2d');
-
-      const resizeCanvas = () => {
-        if (!canvas) return;
-        // 4. Clamp Device Pixel Ratio (§4)
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const displayWidth = canvas.clientWidth;
-        const displayHeight = canvas.clientHeight;
-        if (displayWidth === 0 || displayHeight === 0) return;
-
-        if (canvas.width !== displayWidth * dpr || canvas.height !== displayHeight * dpr) {
-          canvas.width = displayWidth * dpr;
-          canvas.height = displayHeight * dpr;
-        }
-      };
-
-      resizeCanvas();
-
-      const drawCanvasFrame = (frameIdx) => {
-        const img = imagesRef.current[frameIdx];
-        if (!img || !img.complete || img.naturalWidth === 0) return;
-
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const displayWidth = canvas.clientWidth;
-        const displayHeight = canvas.clientHeight;
-        if (displayWidth === 0 || displayHeight === 0) return;
-
-        canvasCtx.save();
-        canvasCtx.scale(dpr, dpr);
-        canvasCtx.clearRect(0, 0, displayWidth, displayHeight);
-
-        // object-fit: cover math with ZOOM_FACTOR & VERTICAL_OFFSET_Y to crop watermark cleanly
-        const imgRatio = img.naturalWidth / img.naturalHeight;
-        const containerRatio = displayWidth / displayHeight;
-        let drawWidth, drawHeight;
-
-        if (containerRatio > imgRatio) {
-          drawWidth = displayWidth * ZOOM_FACTOR;
-          drawHeight = (displayWidth / imgRatio) * ZOOM_FACTOR;
-        } else {
-          drawHeight = displayHeight * ZOOM_FACTOR;
-          drawWidth = (displayHeight * imgRatio) * ZOOM_FACTOR;
-        }
-
-        const x = (displayWidth - drawWidth) / 2;
-        const y = (displayHeight - drawHeight) / 2 + VERTICAL_OFFSET_Y;
-
-        canvasCtx.drawImage(img, x, y, drawWidth, drawHeight);
-        canvasCtx.restore();
-      };
-
-      const requestFrameRender = (index, force = false) => {
-        const frameIdx = Math.max(0, Math.min(TOTAL_FRAMES - 1, Math.floor(index)));
-        if (!force && frameIdx === lastFrameRef.current) return;
-        lastFrameRef.current = frameIdx;
-
-        if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
-        rafIdRef.current = requestAnimationFrame(() => {
-          drawCanvasFrame(frameIdx);
-        });
-      };
-
-      // Render initial frame
-      requestFrameRender(0, true);
-
-      // 2. Direct 1:1 ScrollTrigger Scrub (scrub: true) for zero-lag responsiveness (§2)
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: '+=2500',
-          pin: stickyRef.current,
-          scrub: true,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            const frameIndex = Math.min(
-              TOTAL_FRAMES - 1,
-              Math.floor(self.progress * (TOTAL_FRAMES - 1))
-            );
-            requestFrameRender(frameIndex);
-          },
-        },
-      });
-
-      // 15% Scroll Phase Windows:
-      // Phase 1 (Intro): 0% to 15% (Fades out 15% -> 20%)
-      tl.to(
-        phase1Ref.current,
-        {
-          opacity: 0,
-          y: -30,
-          scale: 0.96,
-          duration: 0.05,
-          ease: 'power2.inOut',
-        },
-        0.15
-      );
-
-      // Phase 2 (Spine & Joints): 20% to 35%
-      tl.fromTo(
-        phase2Ref.current,
-        { opacity: 0, y: 30, scale: 0.96 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.05, ease: 'power2.out' },
-        0.20
-      );
-      tl.to(
-        phase2Ref.current,
-        { opacity: 0, y: -30, scale: 0.96, duration: 0.05, ease: 'power2.in' },
-        0.35
-      );
-
-      // Phase 3 (Neuromuscular & Gastric): 40% to 55%
-      tl.fromTo(
-        phase3Ref.current,
-        { opacity: 0, y: 30, scale: 0.96 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.05, ease: 'power2.out' },
-        0.40
-      );
-      tl.to(
-        phase3Ref.current,
-        { opacity: 0, y: -30, scale: 0.96, duration: 0.05, ease: 'power2.in' },
-        0.55
-      );
-
-      // Phase 4 (CTA Booking Card): 60% to 100%
-      tl.fromTo(
-        phase4Ref.current,
-        { opacity: 0, y: 30, scale: 0.96 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.05, ease: 'power2.out' },
-        0.60
-      );
-
-      const handleResize = () => {
-        resizeCanvas();
-        requestFrameRender(lastFrameRef.current >= 0 ? lastFrameRef.current : 0, true);
-      };
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        window.removeEventListener('resize', handleResize);
-        if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
-      };
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, [imagesLoaded]);
-
-  const whatsappHeroUrl = `https://wa.me/919967321313?text=${encodeURIComponent(
-    'Hi Magical Touch AcuHealth, I would like to book an Acupressure Consultation.'
+  const whatsappUrl = `https://wa.me/919967321313?text=${encodeURIComponent(
+    'Hi Yogesh Sir (Magical Touch), I am struggling with chronic pain and would like to understand if Acupressure can help me avoid surgery.'
   )}`;
 
-  // 3. Remove GPU Repaint Shaders: Solid high-contrast surface without backdrop-filter blur (§3)
-  const solidCardStyle = {
-    backgroundColor: 'rgba(255, 255, 255, 0.97)',
+  const togglePlayback = () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const switchVideoMode = (mode) => {
+    const targetSrc = mode === 'anatomy' ? 'hero_clean.mp4' : 'video.mp4';
+    setVideoSource(targetSrc);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+      setIsPlaying(true);
+    }
   };
 
   return (
-    <section id="about" ref={containerRef} className="relative w-full bg-[#F5F5F7]">
-      {/* Pinned Scroll Wrapper */}
-      <div ref={stickyRef} className="h-screen w-full overflow-hidden bg-[#F5F5F7] flex items-center justify-center relative">
+    <section id="hero-diagnostic" className="relative min-h-[92vh] bg-[#FBF9F5] flex items-center pt-28 pb-20 px-6 sm:px-10 lg:px-16 overflow-hidden">
+      {/* Interactive Squares subtle grid background from React Bits */}
+      <div className="absolute inset-0 opacity-40 pointer-events-none -z-10">
+        <Squares
+          squareSize={48}
+          borderColor="#EAE5DC"
+          hoverFillColor="#C5A869"
+          speed={0.2}
+        />
+      </div>
+
+      {/* Subtle organic ambient warmth */}
+      <div className="absolute top-1/4 right-1/3 w-[500px] h-[500px] bg-amber-100/30 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="absolute bottom-10 left-10 w-96 h-96 bg-stone-200/30 rounded-full blur-3xl pointer-events-none -z-10" />
+
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         
-        {/* Sleek Minimal Preloader Indicator (§1) */}
-        {!imagesLoaded && (
-          <div className="absolute inset-0 z-50 bg-[#F5F5F7] flex flex-col items-center justify-center p-6">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-center justify-center mb-4 animate-pulse">
-              <Activity className="w-7 h-7 text-emerald-600" />
-            </div>
-            <h3 className="text-xl font-bold text-[#1D1D1F] mb-2 font-heading tracking-tight">
-              Loading 3D Experience...
-            </h3>
-            <div className="w-64 h-2 bg-slate-200 rounded-full overflow-hidden border border-slate-300">
-              <div
-                className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-200"
-                style={{ width: `${loadProgress}%` }}
+        {/* ── LEFT COLUMN (Cols 1 to 6): Minimalist, Talkative Editorial ── */}
+        <div className="lg:col-span-6 space-y-8">
+          
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200/80">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+              <ShinyText
+                text="ACUPRESSURE • ANCIENT SCIENCE • MUMBAI CLINIC"
+                speed={4}
+                className="text-[11px] font-mono tracking-widest uppercase text-stone-700 font-medium"
               />
             </div>
-            <span className="text-xs text-emerald-700 font-mono mt-2 font-semibold">{loadProgress}%</span>
-          </div>
-        )}
 
-        {/* Clean Crisp Full-Screen Canvas Layer */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none z-10 overflow-hidden flex items-center justify-center">
-          <canvas
-            ref={canvasRef}
-            className="w-full h-full object-cover relative z-10"
-          />
-        </div>
-
-        {/* 4-Phase Cards: Solid High-Contrast Surface (§3) */}
-        <div className="relative z-30 max-w-xl mx-auto px-4 sm:px-6 w-full text-center pointer-events-auto">
-          
-          {/* Phase 1 (Intro: 0% - 15%) */}
-          <div
-            ref={phase1Ref}
-            style={solidCardStyle}
-            className="p-8 sm:p-10 rounded-[32px] border border-slate-200/80 shadow-xl space-y-5 text-center mx-auto"
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
-              <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-              ANCIENT TECHNIQUE FOR MODERN PROBLEMS
-            </div>
-
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1D1D1F] tracking-[-0.02em] leading-[1.05] font-heading">
-              Towards better health in a gentle way.
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light tracking-[-0.03em] text-[#1A1A18] leading-[1.08]">
+              <BlurText text="RELIEF" delay={60} className="text-[#1A1A18]" />{' '}
+              <span className="font-serif italic font-normal text-stone-500">// Gentle //</span>{' '}
+              <BlurText text="RESTORE" delay={60} className="text-[#1A1A18]" />
             </h1>
-
-            <p className="text-[#424245] text-sm sm:text-base font-normal leading-relaxed">
-              Acupressure is a simple, non-invasive technique to revive, restore, and renew your health without surgical intervention.
+            
+            <p className="text-stone-800 text-lg sm:text-xl font-normal leading-relaxed pt-2">
+              Have you been told that spinal surgery or lifelong painkillers are your only choice?
             </p>
-
-            <div className="pt-2 flex items-center justify-center gap-2 text-xs font-bold text-slate-700">
-              <Award className="w-4 h-4 text-emerald-600" />
-              <span className="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200/80">
-                15+ Years Clinical Experience
-              </span>
-            </div>
+            
+            <p className="text-stone-600 text-base sm:text-lg font-light leading-relaxed max-w-xl">
+              We know how exhausting chronic pain is. For over 15 years in Mumbai, Yogesh Sir has helped patients heal severe sciatica, slip discs, knee degeneration, and trapped nerves — using gentle, non-invasive Acupressure meridian science.
+            </p>
           </div>
 
-          {/* Phase 2 (Spine & Joints: 20% - 35%) */}
-          <div
-            ref={phase2Ref}
-            style={solidCardStyle}
-            className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 p-8 sm:p-10 rounded-[32px] border border-slate-200/80 shadow-xl space-y-5 text-center opacity-0 pointer-events-none"
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-              SPINAL &amp; JOINT DECOMPRESSION
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1D1D1F] tracking-[-0.02em] leading-[1.05] font-heading">
-              Proven relief for severe back &amp; disc pain.
-            </h2>
-
-            <p className="text-[#424245] text-sm sm:text-base font-normal leading-relaxed">
-              Targeted pressure point therapy unblocking compressed L4-L5 nerve roots, Sciatica, Slip Disc, Cervical Spondylosis, and Osteoarthritis.
-            </p>
-
-            <div className="pt-2 flex items-center justify-center gap-2 text-xs font-bold text-slate-700">
-              <Users className="w-4 h-4 text-emerald-600" />
-              <span className="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200/80">
-                Non-Surgical Spinal Recovery
-              </span>
-            </div>
-          </div>
-
-          {/* Phase 3 (Neuromuscular & Gastric: 40% - 55%) */}
-          <div
-            ref={phase3Ref}
-            style={solidCardStyle}
-            className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 p-8 sm:p-10 rounded-[32px] border border-slate-200/80 shadow-xl space-y-5 text-center opacity-0 pointer-events-none"
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
-              <HeartPulse className="w-3.5 h-3.5 text-emerald-600" />
-              NEUROMUSCULAR &amp; METABOLIC VITALITY
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1D1D1F] tracking-[-0.02em] leading-[1.05] font-heading">
-              Restoring nerve reflexes &amp; organ balance.
-            </h2>
-
-            <p className="text-[#424245] text-sm sm:text-base font-normal leading-relaxed">
-              Comprehensive care for Paralysis, Parkinson's, Foot Drop, Arthritis, Gathiyavaad, Hyper Acidity, and Gastric ailments.
-            </p>
-
-            <div className="pt-2 flex items-center justify-center gap-2 text-xs font-bold text-slate-700">
-              <Activity className="w-4 h-4 text-emerald-600" />
-              <span className="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200/80">
-                Holistic Organ &amp; Meridian Reset
-              </span>
-            </div>
-          </div>
-
-          {/* Phase 4 (CTA Booking Card: 60% - 100%) */}
-          <div
-            ref={phase4Ref}
-            style={solidCardStyle}
-            className="absolute inset-x-4 sm:inset-x-6 top-1/2 -translate-y-1/2 p-8 sm:p-10 rounded-[32px] border border-slate-200/80 shadow-xl space-y-5 text-center opacity-0 pointer-events-none"
-          >
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-700 text-xs font-extrabold tracking-wider uppercase">
-              <Stethoscope className="w-3.5 h-3.5 text-emerald-600" />
-              HOLISTIC CLINICAL CONSULTATION
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1D1D1F] tracking-[-0.02em] leading-[1.05] font-heading">
-              Begin your journey to pain-free living.
-            </h2>
-
-            <p className="text-[#424245] text-sm sm:text-base font-normal leading-relaxed">
-              Speak with our AcuHealth Specialists for an initial evaluation of your spine, knee, or neurological condition.
-            </p>
-
-            <div className="pt-3">
+          {/* Minimalist Action CTAs with React Bits Magnet */}
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            <Magnet magnetStrength={0.25} padding={20}>
               <a
-                href={whatsappHeroUrl}
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="pointer-events-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-extrabold text-sm shadow-xl shadow-emerald-500/25 hover:scale-105 active:scale-95 transition-all duration-200"
+                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#1A1A18] hover:bg-stone-800 text-white text-xs sm:text-sm font-medium tracking-wide shadow-sm active:scale-95 transition-all cursor-pointer"
               >
-                <MessageCircle className="w-5 h-5 fill-white" />
-                Book Acupressure Consultation
-                <ArrowRight className="w-4 h-4 text-white" />
+                <MessageCircle className="w-4 h-4 fill-white" />
+                <span>Consult Yogesh Sir</span>
+                <ArrowUpRight className="w-3.5 h-3.5 opacity-70" />
               </a>
-            </div>
+            </Magnet>
+
+            <Magnet magnetStrength={0.2} padding={15}>
+              <a
+                href="#approach"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-transparent hover:bg-stone-100 text-stone-800 text-xs sm:text-sm font-medium border border-stone-300 transition-all active:scale-95 cursor-pointer"
+              >
+                <span>Explore Our Approach</span>
+              </a>
+            </Magnet>
           </div>
 
+          {/* Quiet, Sleek Editorial Footnote with CountUp from React Bits */}
+          <div className="pt-6 border-t border-stone-200/70 flex items-center gap-6 text-xs text-stone-600 font-medium">
+            <span>
+              <CountUp to={15} suffix="+ Years" duration={1.5} /> in Mumbai
+            </span>
+            <span>&bull;</span>
+            <span>
+              <CountUp to={10000} separator="," suffix="+ Patients" duration={2} />
+            </span>
+            <span>&bull;</span>
+            <span className="text-stone-500 font-light">100% Non-Invasive</span>
+          </div>
+
+        </div>
+
+        {/* ── RIGHT COLUMN (Cols 7 to 12): Pure, Cinematic Video Stage wrapped in SpotlightCard ── */}
+        <div className="lg:col-span-6">
+          <SpotlightCard
+            spotlightColor="rgba(217, 119, 6, 0.2)"
+            className="rounded-[36px] overflow-hidden bg-stone-900 border border-stone-200/60 shadow-2xl group p-0"
+          >
+            <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full overflow-hidden bg-stone-950">
+              <video
+                ref={videoRef}
+                key={videoSource}
+                src={`/${videoSource}`}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className="w-full h-full object-cover"
+              />
+
+              {/* Minimal Video Mode Switcher */}
+              <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5 p-1 rounded-full bg-stone-900/80 backdrop-blur-md border border-white/10 shadow-lg">
+                <button
+                  onClick={() => switchVideoMode('anatomy')}
+                  className={`px-3 py-1 rounded-full text-[11px] font-medium tracking-wide transition-all cursor-pointer ${
+                    videoSource === 'hero_clean.mp4'
+                      ? 'bg-white text-stone-900 shadow-sm'
+                      : 'text-stone-300 hover:text-white'
+                  }`}
+                >
+                  Meridian Anatomy
+                </button>
+                <button
+                  onClick={() => switchVideoMode('clinic')}
+                  className={`px-3 py-1 rounded-full text-[11px] font-medium tracking-wide transition-all cursor-pointer ${
+                    videoSource === 'video.mp4'
+                      ? 'bg-white text-stone-900 shadow-sm'
+                      : 'text-stone-300 hover:text-white'
+                  }`}
+                >
+                  Clinical Touch
+                </button>
+              </div>
+
+              {/* Minimal Playback Controls */}
+              <div className="absolute bottom-4 right-4 z-10 flex items-center gap-2">
+                <button
+                  onClick={togglePlayback}
+                  aria-label={isPlaying ? 'Pause video' : 'Play video'}
+                  className="w-8 h-8 rounded-full bg-stone-900/80 hover:bg-stone-900 backdrop-blur-md border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer shadow-md"
+                >
+                  {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 fill-white" />}
+                </button>
+                <button
+                  onClick={() => {
+                    if (videoRef.current) {
+                      videoRef.current.currentTime = 0;
+                      videoRef.current.play();
+                      setIsPlaying(true);
+                    }
+                  }}
+                  aria-label="Restart video"
+                  className="w-8 h-8 rounded-full bg-stone-900/80 hover:bg-stone-900 backdrop-blur-md border border-white/10 text-white flex items-center justify-center transition-all cursor-pointer shadow-md"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                </button>
+              </div>
+
+            </div>
+          </SpotlightCard>
         </div>
 
       </div>

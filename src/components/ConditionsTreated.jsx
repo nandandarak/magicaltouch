@@ -165,22 +165,18 @@ export default function ConditionsTreated() {
       : CONDITIONS_DATA.filter((item) => item.category === activeCategory);
 
   return (
-    <section id="conditions-detail" className="py-24 bg-slate-950 relative">
-      {/* Background glow graphics */}
-      <div className="absolute top-1/3 right-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-
+    <section id="conditions-detail" className="py-24 bg-[#F5F5F7] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-4">
-            <Stethoscope className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold uppercase tracking-wider mb-4">
+            <Stethoscope className="w-3.5 h-3.5 text-emerald-600" />
             Specialized Acupressure Care
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-heading mb-4">
+          <h2 className="text-3xl sm:text-5xl font-black text-[#1D1D1F] tracking-tight font-heading mb-4">
             Conditions We <span className="text-gradient-emerald">Effectively Treat</span>
           </h2>
-          <p className="text-slate-300 text-base sm:text-lg">
+          <p className="text-slate-600 text-base sm:text-lg font-medium">
             Targeted clinical acupressure protocols designed to solve severe nerve compression, joint degeneration, and systemic imbalances without medications or surgery.
           </p>
         </div>
@@ -193,10 +189,10 @@ export default function ConditionsTreated() {
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-xl font-medium text-xs sm:text-sm transition-all duration-200 ${
+                className={`px-5 py-2 rounded-full font-bold text-xs sm:text-sm transition-all duration-200 ${
                   isActive
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-bold shadow-lg shadow-emerald-500/20 scale-105'
-                    : 'bg-slate-900/90 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700'
+                    ? 'bg-[#1D1D1F] text-white shadow-md'
+                    : 'bg-white text-slate-600 hover:text-[#1D1D1F] border border-slate-200'
                 }`}
               >
                 {cat}
@@ -215,45 +211,45 @@ export default function ConditionsTreated() {
             return (
               <div
                 key={condition.id}
-                className="glass-panel p-6 rounded-2xl glass-panel-hover flex flex-col justify-between relative group"
+                className="bento-card p-6 flex flex-col justify-between relative group"
               >
                 <div>
                   {/* Category Tag */}
                   <div className="flex items-center justify-between mb-4">
                     <span
-                      className={`text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full border ${condition.tagColor}`}
+                      className="text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200"
                     >
                       {condition.category}
                     </span>
-                    <Sparkles className="w-4 h-4 text-emerald-400/60 group-hover:text-emerald-400 transition-colors" />
+                    <Sparkles className="w-4 h-4 text-emerald-600 opacity-60 group-hover:opacity-100 transition-opacity" />
                   </div>
 
                   {/* Title & Subtitle */}
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-emerald-300 transition-colors">
+                  <h3 className="text-xl font-black text-[#1D1D1F] mb-1 group-hover:text-emerald-700 transition-colors font-heading">
                     {condition.name}
                   </h3>
-                  <p className="text-xs text-slate-400 mb-4">{condition.subtitle}</p>
+                  <p className="text-xs text-slate-500 font-medium mb-4">{condition.subtitle}</p>
 
                   {/* Symptoms & Acupressure Focus */}
-                  <div className="space-y-3 mb-6 border-t border-slate-800/80 pt-4">
+                  <div className="space-y-3 mb-6 border-t border-slate-100 pt-4">
                     <div>
-                      <span className="text-xs font-semibold text-slate-300 block mb-1">
+                      <span className="text-xs font-bold text-slate-800 block mb-1">
                         Common Symptoms:
                       </span>
-                      <p className="text-xs text-slate-400 leading-relaxed">{condition.symptoms}</p>
+                      <p className="text-xs text-slate-600 leading-relaxed font-medium">{condition.symptoms}</p>
                     </div>
 
                     <div>
-                      <span className="text-xs font-semibold text-emerald-400 block mb-1">
+                      <span className="text-xs font-bold text-emerald-700 block mb-1">
                         Acupressure Action:
                       </span>
-                      <p className="text-xs text-slate-300 leading-relaxed">
+                      <p className="text-xs text-slate-700 leading-relaxed font-medium">
                         {condition.acupressureFocus}
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-1.5 pt-1 text-[11px] text-teal-400 font-medium">
-                      <Clock className="w-3.5 h-3.5 text-teal-400" />
+                    <div className="flex items-center gap-1.5 pt-1 text-[11px] text-emerald-700 font-bold">
+                      <Clock className="w-3.5 h-3.5 text-emerald-600" />
                       <span>Timeline: {condition.recoveryTimeline}</span>
                     </div>
                   </div>
@@ -264,11 +260,11 @@ export default function ConditionsTreated() {
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 text-xs font-bold hover:bg-emerald-500 hover:text-slate-950 hover:border-emerald-400 transition-all duration-200 group/btn"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-full bg-emerald-600 text-white text-xs font-extrabold shadow-sm hover:bg-emerald-700 transition-all duration-200 group/btn"
                 >
-                  <MessageCircle className="w-4 h-4 text-emerald-400 group-hover/btn:text-slate-950 group-hover/btn:fill-slate-950 transition-colors" />
+                  <MessageCircle className="w-4 h-4 fill-white" />
                   <span>Consult for {condition.name}</span>
-                  <ChevronRight className="w-3.5 h-3.5 opacity-60 group-hover/btn:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="w-3.5 h-3.5 opacity-80 group-hover/btn:translate-x-0.5 transition-transform" />
                 </a>
               </div>
             );
