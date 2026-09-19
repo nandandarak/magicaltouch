@@ -1,10 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, MessageCircle, Phone, Sparkles, Play, Pause } from 'lucide-react';
-import { ShinyText, BlurText, Magnet } from './reactbits';
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  ArrowUpRight,
+  MessageCircle,
+  Phone,
+  Sparkles,
+  Play,
+  Pause,
+} from "lucide-react";
+import { ShinyText, BlurText, Magnet } from "./reactbits";
 
-const whatsappUrl = `https://wa.me/919967321313?text=${encodeURIComponent(
-  'Hi Yogesh Sir (Magical Touch), I watched the holistic approach video. Can you help me understand how acupressure can relieve my pain?'
+const whatsappUrl = `https://wa.me/919152292507?text=${encodeURIComponent(
+  "Hi Yogaysh Lahoti (Magical Touch), I watched the holistic approach video. Can you help me understand how acupressure can relieve my pain?",
 )}`;
 
 export default function HolisticApproach() {
@@ -24,9 +31,9 @@ export default function HolisticApproach() {
           const handleFirstClick = () => {
             video.play();
             setIsPlaying(true);
-            window.removeEventListener('click', handleFirstClick);
+            window.removeEventListener("click", handleFirstClick);
           };
-          window.addEventListener('click', handleFirstClick);
+          window.addEventListener("click", handleFirstClick);
         });
     }
   }, []);
@@ -68,7 +75,6 @@ export default function HolisticApproach() {
       {/* ── Minimalist, Short & Sweet Info Floating on Left ── */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-8">
         <div className="w-full max-w-md sm:max-w-lg space-y-4">
-          
           {/* Top Pill with React Bits ShinyText */}
           <motion.div
             initial={{ opacity: 0, y: 8 }}
@@ -92,7 +98,7 @@ export default function HolisticApproach() {
               delay={35}
               direction="bottom"
               className="text-white"
-            />{' '}
+            />{" "}
             <span className="font-serif italic font-normal text-amber-200/95 block sm:inline">
               We gently free the flow.
             </span>
@@ -106,7 +112,9 @@ export default function HolisticApproach() {
             transition={{ duration: 0.5, delay: 0.12 }}
             className="text-stone-100 text-sm sm:text-base font-light leading-relaxed max-w-md drop-shadow"
           >
-            Gentle meridian touch releases root nerve entrapment and revives natural joint circulation — 100% non-invasive, no surgeries, no lifelong painkillers.
+            Gentle meridian touch releases root nerve entrapment and revives
+            natural joint circulation — 100% non-invasive, no surgeries, no
+            lifelong painkillers.
           </motion.p>
 
           {/* Quick Magnetic CTAs using React Bits Magnet */}
@@ -125,24 +133,26 @@ export default function HolisticApproach() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#1A1A18] hover:bg-stone-100 text-xs sm:text-sm font-medium tracking-wide shadow-xl active:scale-95 transition-all cursor-pointer"
               >
                 <MessageCircle className="w-3.5 h-3.5 fill-[#1A1A18]" />
-                <span>Consult Yogesh Sir</span>
+                <span>Consult Yogaysh Lahoti</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
             </Magnet>
 
             <Magnet magnetStrength={0.2} padding={15}>
               <a
-                href="tel:+919967321313"
+                href="tel:+919152292507"
                 className="inline-flex items-center gap-1.5 px-4 py-3 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/25 text-white text-xs sm:text-sm font-medium transition-all shadow-md cursor-pointer"
               >
                 <Phone className="w-3.5 h-3.5" />
-                <span>+91 99673 21313</span>
+                <span>+91 91522 92507</span>
               </a>
             </Magnet>
 
             <button
               onClick={togglePlay}
-              aria-label={isPlaying ? 'Pause background video' : 'Play background video'}
+              aria-label={
+                isPlaying ? "Pause background video" : "Play background video"
+              }
               className="inline-flex items-center gap-1.5 px-3 py-3 rounded-full bg-black/35 hover:bg-black/55 backdrop-blur-md border border-white/20 text-white text-xs transition-all cursor-pointer shadow-md"
             >
               {isPlaying ? (
@@ -168,7 +178,7 @@ export default function HolisticApproach() {
             className="flex flex-wrap items-center gap-2 pt-1 text-xs text-white/90 font-light"
           >
             <span className="px-2.5 py-1 rounded-full bg-black/30 backdrop-blur-md border border-white/15">
-              <ShinyText text="15+ Years Mastery" speed={5} />
+              <ShinyText text="10+ Years Mastery" speed={5} />
             </span>
             <span className="px-2.5 py-1 rounded-full bg-black/30 backdrop-blur-md border border-white/15">
               <ShinyText text="5,000+ Healed" speed={5} />
@@ -177,10 +187,8 @@ export default function HolisticApproach() {
               <ShinyText text="0 Surgeries" speed={5} />
             </span>
           </motion.div>
-
         </div>
       </div>
-
     </section>
   );
 }

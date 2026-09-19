@@ -1,52 +1,61 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, MessageCircle } from 'lucide-react';
-import { TiltedCard, SpotlightCard, Magnet, ShinyText } from './reactbits';
+import React from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { TiltedCard, SpotlightCard, Magnet, ShinyText } from "./reactbits";
 
 const STORIES = [
   {
-    patient: 'Rohit Jain',
-    condition: 'Severe Back & Sciatica',
-    quote: 'Orthopedics and physiotherapy failed for months. Four sessions of Acupressure with Yogesh Sir and my severe back pain was gone. I avoided spinal surgery.',
+    patient: "Rohit Jain",
+    condition: "Severe Back & Sciatica",
+    quote:
+      "Orthopedics and physiotherapy failed for months. Four sessions of Acupressure with Yogaysh Lahoti and my severe back pain was gone. I avoided spinal surgery.",
   },
   {
-    patient: 'Mrs. Kinjal Gada',
-    condition: 'Chronic Knee Degeneration',
-    quote: 'I wore a knee brace for two years and dreaded stairs. Acupressure revived my joint fluid — I walk freely without pain now.',
+    patient: "Mrs. Kinjal Gada",
+    condition: "Chronic Knee Degeneration",
+    quote:
+      "I wore a knee brace for two years and dreaded stairs. Acupressure revived my joint fluid — I walk freely without pain now.",
   },
   {
-    patient: 'Mr. Devendra Garg',
-    condition: 'Parkinson\'s & Motor Rehab',
-    quote: 'Where conventional treatment offered no hope, just five sessions here restored my stability and tremors subsided.',
+    patient: "Mr. Devendra Garg",
+    condition: "Parkinson's & Motor Rehab",
+    quote:
+      "Where conventional treatment offered no hope, just five sessions here restored my stability and tremors subsided.",
   },
   {
-    patient: 'Mrs. Chandrakala Prasad',
-    condition: 'Chronic Somatic Pain',
-    quote: 'Gentle, soothing, and genuinely effective. No injections, no pills, just lasting relief from deep nerve agony.',
+    patient: "Mrs. Chandrakala Prasad",
+    condition: "Chronic Somatic Pain",
+    quote:
+      "Gentle, soothing, and genuinely effective. No injections, no pills, just lasting relief from deep nerve agony.",
   },
 ];
 
 export default function SleekStories() {
   return (
-    <section id="transformations" className="py-24 sm:py-32 bg-[#FAF9F6] border-t border-stone-200/60">
+    <section
+      id="transformations"
+      className="py-24 sm:py-32 bg-[#FAF9F6] border-t border-stone-200/60"
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
-        
         {/* Section Header */}
         <div className="max-w-3xl mb-16 sm:mb-20 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200/80 text-[11px] font-mono text-stone-600">
             <ShinyText text="VERIFIED MUMBAI PATIENT RECOVERIES" speed={4} />
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-light text-[#1A1A18] tracking-[-0.03em] leading-tight">
-            Stories of <span className="font-serif italic font-normal text-stone-500">Transformations.</span>
+            Stories of{" "}
+            <span className="font-serif italic font-normal text-stone-500">
+              Transformations.
+            </span>
           </h2>
           <p className="text-stone-600 text-base sm:text-lg font-light leading-relaxed">
-            Real stories from Mumbai residents who regained mobility after advised surgeries or painkillers failed.
+            Real stories from Mumbai residents who regained mobility after
+            advised surgeries or painkillers failed.
           </p>
         </div>
 
         {/* 2-Column Grid: Featured Mumbai Recovery Image + Quotes List */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
           {/* Left Column: Marine Drive Vitality Photo with 3D Tilt */}
           <div className="lg:col-span-5 relative flex justify-center">
             <TiltedCard
@@ -71,7 +80,7 @@ export default function SleekStories() {
                 key={idx}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
+                viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
               >
                 <SpotlightCard
@@ -84,16 +93,18 @@ export default function SleekStories() {
 
                   <div className="flex items-center justify-between pt-2 border-t border-stone-100">
                     <div>
-                      <h4 className="text-sm font-medium text-[#1A1A18]">{story.patient}</h4>
+                      <h4 className="text-sm font-medium text-[#1A1A18]">
+                        {story.patient}
+                      </h4>
                       <span className="text-xs text-stone-500 font-light">
                         {story.condition} &middot; Mumbai
                       </span>
                     </div>
 
-                    <Magnet padding={12} magnetStrength={2.0}>
+                    <Magnet padding={12}>
                       <a
-                        href={`https://wa.me/919967321313?text=${encodeURIComponent(
-                          `Hi Yogesh Sir, I read about the recovery of ${story.patient} for ${story.condition} and would like to consult.`
+                        href={`https://wa.me/919152292507?text=${encodeURIComponent(
+                          `Hi Yogaysh Lahoti, I read about the recovery of ${story.patient} for ${story.condition} and would like to consult.`,
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -108,9 +119,7 @@ export default function SleekStories() {
               </motion.div>
             ))}
           </div>
-
         </div>
-
       </div>
     </section>
   );

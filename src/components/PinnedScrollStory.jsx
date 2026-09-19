@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { CheckCircle2, ArrowRight, MessageCircle } from 'lucide-react';
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CheckCircle2, ArrowRight, MessageCircle } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,58 +9,82 @@ const PX_PER_CHAPTER = 720;
 
 const chapters = [
   {
-    img: '/clinic_media/about.jpg',
-    tag: 'Ancient Healing Wisdom · Yogesh Sir',
+    img: "/clinic_media/about.jpg",
+    tag: "Ancient Healing Wisdom · Yogaysh Lahoti",
     title: "Ancient technique for\nmodern chronic problems.",
     body: "Often the rigours of modern life take a toll on health. Not all chronic health issues need painful surgical intervention. Acupressure is a simple, non-invasive, ancient technique to revive, restore, and renew your health without drugs or surgery.",
-    points: ['15+ Years of hands-on clinic practice', 'Non-invasive & 100% drug-free', 'Personalized consultation with Yogesh Sir'],
-    stat: '15+ Years',
-    statLabel: 'Clinical Practice in Mumbai',
+    points: [
+      "10+ Years of hands-on clinic practice",
+      "Non-invasive & 100% drug-free",
+      "Personalized consultation with Yogaysh Lahoti",
+    ],
+    stat: "10+ Years",
+    statLabel: "Clinical Practice in Mumbai",
   },
   {
-    img: '/clinic_media/magical-touch-backpain.jpg',
-    tag: 'Severe Back Pain & Lumbar Relief',
-    title: 'Sitting hours & stress take\na toll. We release the root.',
-    body: 'Long sedentary desk hours and improper posture compress lumbar vertebrae and cause intense agony. Our precision acupressure decompresses spinal tension and restores painless movement without injections or surgery.',
-    points: ['Relief for severe lumbar & muscle spasms', 'Stimulates healing along Du & Bladder meridians', 'Effective alternative to risky spine surgery'],
-    stat: '100+',
-    statLabel: 'Documented Severe Recoveries',
+    img: "/clinic_media/magical-touch-backpain.jpg",
+    tag: "Severe Back Pain & Lumbar Relief",
+    title: "Sitting hours & stress take\na toll. We release the root.",
+    body: "Long sedentary desk hours and improper posture compress lumbar vertebrae and cause intense agony. Our precision acupressure decompresses spinal tension and restores painless movement without injections or surgery.",
+    points: [
+      "Relief for severe lumbar & muscle spasms",
+      "Stimulates healing along Du & Bladder meridians",
+      "Effective alternative to risky spine surgery",
+    ],
+    stat: "100+",
+    statLabel: "Documented Severe Recoveries",
   },
   {
-    img: '/clinic_media/magical-touch-sciatica.jpg',
-    tag: 'Sciatica & Slip Disc Care',
-    title: 'Pinched sciatic nerves\ncan be fully unblocked.',
-    body: 'Sciatica pain radiating from lower back to feet and debilitating slip disc (L4-L5 / L5-S1) make sitting and walking unbearable. Targeted acupressure releases nerve entrapment and realigns natural disc spacing.',
-    points: ['Unblocks compressed L4-L5 / S1 nerve roots', 'Stops shooting leg and thigh pain', 'Avoid invasive spinal surgery'],
-    stat: '94%',
-    statLabel: 'Report Pain Freedom',
+    img: "/clinic_media/magical-touch-sciatica.jpg",
+    tag: "Sciatica & Slip Disc Care",
+    title: "Pinched sciatic nerves\ncan be fully unblocked.",
+    body: "Sciatica pain radiating from lower back to feet and debilitating slip disc (L4-L5 / L5-S1) make sitting and walking unbearable. Targeted acupressure releases nerve entrapment and realigns natural disc spacing.",
+    points: [
+      "Unblocks compressed L4-L5 / S1 nerve roots",
+      "Stops shooting leg and thigh pain",
+      "Avoid invasive spinal surgery",
+    ],
+    stat: "94%",
+    statLabel: "Report Pain Freedom",
   },
   {
-    img: '/clinic_media/magical-touch-knee-pain.jpg',
-    tag: 'Knee Pain & Arthritis / Ghatiyavaad',
-    title: 'Walk without pain.\nDiscard the knee cap.',
-    body: 'Knee replacement should be the last resort, not the first. By activating over 15 specific acupressure points around the knee and releasing patellar friction, patients like Mrs. Kinjal Gada walk and climb stairs pain-free after years on knee caps.',
-    points: ['15+ targeted meridian points for joints', 'Synovial fluid balance & friction release', 'Effective for arthritis & Ghatiyavaad'],
-    stat: '2 Yrs',
-    statLabel: 'Knee-Cap Discarded by Patients',
+    img: "/clinic_media/magical-touch-knee-pain.jpg",
+    tag: "Knee Pain & Arthritis / Ghatiyavaad",
+    title: "Walk without pain.\nDiscard the knee cap.",
+    body: "Knee replacement should be the last resort, not the first. By activating over 15 specific acupressure points around the knee and releasing patellar friction, patients like Mrs. Kinjal Gada walk and climb stairs pain-free after years on knee caps.",
+    points: [
+      "15+ targeted meridian points for joints",
+      "Synovial fluid balance & friction release",
+      "Effective for arthritis & Ghatiyavaad",
+    ],
+    stat: "2 Yrs",
+    statLabel: "Knee-Cap Discarded by Patients",
   },
   {
-    img: '/clinic_media/magical-touch-paralysis.jpg',
-    tag: 'Neuromuscular & Post-Stroke Care',
-    title: 'Dormant nerve pathways\ncan be awakened again.',
+    img: "/clinic_media/magical-touch-paralysis.jpg",
+    tag: "Neuromuscular & Post-Stroke Care",
+    title: "Dormant nerve pathways\ncan be awakened again.",
     body: "Rehabilitation for Paralysis, Parkinson's disease, and Foot Drop is much faster and more sustainable with acupressure. Gentle rhythmic stimulation reactivates motor nerve signals between brain and limbs.",
-    points: ['Post-stroke paralysis motor rehabilitation', "Parkinson's tremor relief & walking stability", 'Trigger point activation for Foot Drop'],
-    stat: '5 Sessions',
-    statLabel: 'To Begin Walking with Support',
+    points: [
+      "Post-stroke paralysis motor rehabilitation",
+      "Parkinson's tremor relief & walking stability",
+      "Trigger point activation for Foot Drop",
+    ],
+    stat: "5 Sessions",
+    statLabel: "To Begin Walking with Support",
   },
   {
-    img: '/clinic_media/yoga.jpg',
-    tag: 'Yoga & Meditation Science',
-    title: 'Relax with ancient\nYoga and Meditation.',
-    body: 'Now proudly practiced around the world, yoga and pranayam help not only in body toning and rejuvenation, but calm the mind to rid the body of psychosomatic illnesses and prevent recurring pain.',
-    points: ['Pranayams for emotional balance', 'Relaxation for a stress-free life', 'Special meditation for deep healing insight'],
-    stat: '100%',
-    statLabel: 'Holistic Mind-Body Harmony',
+    img: "/clinic_media/yoga.jpg",
+    tag: "Yoga & Meditation Science",
+    title: "Relax with ancient\nYoga and Meditation.",
+    body: "Now proudly practiced around the world, yoga and pranayam help not only in body toning and rejuvenation, but calm the mind to rid the body of psychosomatic illnesses and prevent recurring pain.",
+    points: [
+      "Pranayams for emotional balance",
+      "Relaxation for a stress-free life",
+      "Special meditation for deep healing insight",
+    ],
+    stat: "100%",
+    statLabel: "Holistic Mind-Body Harmony",
   },
 ];
 
@@ -71,8 +95,8 @@ export default function PinnedScrollStory() {
   const txtLayerRef = useRef([]);
   const progressDotsRef = useRef([]);
 
-  const whatsapp = `https://wa.me/919967321313?text=${encodeURIComponent(
-    'Hi Magical Touch AcuHealth, I would like to book an Acupressure Consultation.'
+  const whatsapp = `https://wa.me/919152292507?text=${encodeURIComponent(
+    "Hi Magical Touch AcuHealth, I would like to book an Acupressure Consultation.",
   )}`;
 
   useEffect(() => {
@@ -96,7 +120,7 @@ export default function PinnedScrollStory() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: wrap,
-          start: 'top top',
+          start: "top top",
           end: `+=${N * PX_PER_CHAPTER}`,
           pin: pin,
           scrub: 0.7,
@@ -107,9 +131,9 @@ export default function PinnedScrollStory() {
               if (!dot) return;
               gsap.to(dot, {
                 width: i === active ? 28 : 7,
-                backgroundColor: i === active ? '#059669' : '#CBD5E1',
+                backgroundColor: i === active ? "#059669" : "#CBD5E1",
                 duration: 0.25,
-                ease: 'power2.out',
+                ease: "power2.out",
               });
             });
           },
@@ -127,10 +151,35 @@ export default function PinnedScrollStory() {
         const ct = txtLayerRef.current[i];
         const nt = txtLayerRef.current[i + 1];
 
-        if (ct) tl.to(ct, { opacity: 0, y: -20, ease: 'power2.in', duration: seg * 0.25 }, fadeOutStart);
-        if (ci) tl.to(ci, { opacity: 0, scale: 0.96, ease: 'power2.inOut', duration: seg * 0.3 }, fadeOutStart - seg * 0.05);
-        if (ni) tl.to(ni, { opacity: 1, scale: 1, ease: 'power2.out', duration: seg * 0.3 }, boundary - seg * 0.15);
-        if (nt) tl.to(nt, { opacity: 1, y: 0, ease: 'power2.out', duration: seg * 0.25 }, boundary - seg * 0.1);
+        if (ct)
+          tl.to(
+            ct,
+            { opacity: 0, y: -20, ease: "power2.in", duration: seg * 0.25 },
+            fadeOutStart,
+          );
+        if (ci)
+          tl.to(
+            ci,
+            {
+              opacity: 0,
+              scale: 0.96,
+              ease: "power2.inOut",
+              duration: seg * 0.3,
+            },
+            fadeOutStart - seg * 0.05,
+          );
+        if (ni)
+          tl.to(
+            ni,
+            { opacity: 1, scale: 1, ease: "power2.out", duration: seg * 0.3 },
+            boundary - seg * 0.15,
+          );
+        if (nt)
+          tl.to(
+            nt,
+            { opacity: 1, y: 0, ease: "power2.out", duration: seg * 0.25 },
+            boundary - seg * 0.1,
+          );
       }
     }, wrap);
 
@@ -148,11 +197,10 @@ export default function PinnedScrollStory() {
       <div
         ref={pinRef}
         className="w-full bg-[#FAF8F5]"
-        style={{ height: '100vh' }}
+        style={{ height: "100vh" }}
       >
         {/* Inner grid — full-height flex */}
         <div className="h-full max-w-[1400px] mx-auto px-6 sm:px-10 xl:px-16 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center py-10">
-
           {/* ━━━━━━ LEFT — Photo Stack ━━━━━━ */}
           <div className="relative h-[52vh] lg:h-[82vh] rounded-[32px] overflow-hidden shadow-2xl shadow-slate-300/50">
             {chapters.map((ch, i) => (
@@ -197,7 +245,9 @@ export default function PinnedScrollStory() {
                   {ch.points.map((pt, j) => (
                     <li key={j} className="flex items-center gap-3">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span className="text-sm font-bold text-slate-800">{pt}</span>
+                      <span className="text-sm font-bold text-slate-800">
+                        {pt}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -229,13 +279,15 @@ export default function PinnedScrollStory() {
                   {chapters.map((_, di) => (
                     <div
                       key={di}
-                      ref={(el) => { if (i === 0) progressDotsRef.current[di] = el; }}
+                      ref={(el) => {
+                        if (i === 0) progressDotsRef.current[di] = el;
+                      }}
                       className="rounded-full"
                       style={{
                         height: 3,
                         width: di === 0 ? 28 : 7,
-                        backgroundColor: di === 0 ? '#059669' : '#CBD5E1',
-                        transition: 'none',
+                        backgroundColor: di === 0 ? "#059669" : "#CBD5E1",
+                        transition: "none",
                       }}
                     />
                   ))}
@@ -243,7 +295,6 @@ export default function PinnedScrollStory() {
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </div>

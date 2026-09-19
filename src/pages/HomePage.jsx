@@ -1,12 +1,12 @@
-import React from 'react';
-import HeroPinCanvas from '../components/HeroPinCanvas';
-import SymptomCompass from '../components/SymptomCompass';
-import HolisticApproach from '../components/HolisticApproach';
-import SleekConditions from '../components/SleekConditions';
-import PersonalFounderNote from '../components/PersonalFounderNote';
-import SleekStories from '../components/SleekStories';
-import ConversationalFAQ from '../components/ConversationalFAQ';
-import SleekContact from '../components/SleekContact';
+import React from "react";
+import HeroPinCanvas from "../components/HeroPinCanvas";
+import SymptomCompass from "../components/SymptomCompass";
+import HolisticApproach from "../components/HolisticApproach";
+import SleekConditions from "../components/SleekConditions";
+import PersonalFounderNote from "../components/PersonalFounderNote";
+import SleekStories from "../components/SleekStories";
+import ConversationalFAQ from "../components/ConversationalFAQ";
+import SleekContact from "../components/SleekContact";
 
 export default function HomePage() {
   return (
@@ -23,7 +23,7 @@ export default function HomePage() {
       {/* 4. 12 Clinical Conditions Treated */}
       <SleekConditions />
 
-      {/* 5. A Personal Letter From Yogesh Sir to the Patient */}
+      {/* 5. A Personal Letter From Yogaysh Lahoti to the Patient */}
       <PersonalFounderNote />
 
       {/* 6. Stories of Transformations (Authentic Recoveries) */}

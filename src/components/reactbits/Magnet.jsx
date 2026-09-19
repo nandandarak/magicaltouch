@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef, useState } from "react";
+import { motion } from "framer-motion";
 
 /**
  * Magnet Component from reactbits.dev
@@ -7,13 +7,13 @@ import { motion } from 'framer-motion';
  */
 export default function Magnet({
   children,
-  padding = 40,
+  padding = 10,
   disabled = false,
-  magnetStrength = 0.35,
-  activeTransition = 'transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)',
-  inactiveTransition = 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)',
-  wrapperClassName = '',
-  innerClassName = '',
+  magnetStrength = 0.06, // 💡 Lowered significantly to reduce travel distance
+  activeTransition = "transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)", // 💡 Restored smooth "rubber-band" easing
+  inactiveTransition = "transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)", // 💡 Restored smooth return easing
+  wrapperClassName = "",
+  innerClassName = "",
   ...props
 }) {
   const [isActive, setIsActive] = useState(false);
@@ -23,7 +23,8 @@ export default function Magnet({
   const handleMouseMove = (e) => {
     if (disabled || !magnetRef.current) return;
 
-    const { left, top, width, height } = magnetRef.current.getBoundingClientRect();
+    const { left, top, width, height } =
+      magnetRef.current.getBoundingClientRect();
     const centerX = left + width / 2;
     const centerY = top + height / 2;
 
@@ -62,7 +63,7 @@ export default function Magnet({
         style={{
           transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
           transition,
-          willChange: 'transform',
+          willChange: "transform",
         }}
       >
         {children}

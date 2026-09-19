@@ -1,52 +1,58 @@
-import React from 'react';
-import { MessageCircle, ArrowUpRight, CheckCircle2 } from 'lucide-react';
-import { SpotlightCard, Magnet, ShinyText } from '../components/reactbits';
+import React from "react";
+import { MessageCircle, ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { SpotlightCard, Magnet, ShinyText } from "../components/reactbits";
 
-const whatsappUrl = `https://wa.me/919967321313?text=${encodeURIComponent(
-  'Hi Yogesh Sir (Magical Touch), I read your science page and would like to consult about holistic healing.'
+const whatsappUrl = `https://wa.me/919152292507?text=${encodeURIComponent(
+  "Hi Yogaysh Lahoti (Magical Touch), I read your science page and would like to consult about holistic healing.",
 )}`;
 
 const COMPARISONS = [
   {
-    method: 'Acupressure (Magical Touch)',
-    invasive: 'Zero Incisions, 100% Manual',
-    sideEffects: 'None. Completely natural & safe',
-    rootCause: 'Releases nerve entrapment & restores circulation',
-    recovery: 'Walk immediately; 3-7 sessions',
+    method: "Acupressure (Magical Touch)",
+    invasive: "Zero Incisions, 100% Manual",
+    sideEffects: "None. Completely natural & safe",
+    rootCause: "Releases nerve entrapment & restores circulation",
+    recovery: "Walk immediately; 3-7 sessions",
   },
   {
-    method: 'Spine / Joint Surgery',
-    invasive: 'High risk (cutting, screws, anesthesia)',
-    sideEffects: 'Infection risk, scar tissue, failed back surgery',
-    rootCause: 'Cuts away tissue; does not fix muscle clamping',
-    recovery: 'Months of painful post-op bedrest',
+    method: "Spine / Joint Surgery",
+    invasive: "High risk (cutting, screws, anesthesia)",
+    sideEffects: "Infection risk, scar tissue, failed back surgery",
+    rootCause: "Cuts away tissue; does not fix muscle clamping",
+    recovery: "Months of painful post-op bedrest",
   },
   {
-    method: 'Painkiller Medications',
-    invasive: 'Oral pills / Cortisone injections',
-    sideEffects: 'Severe gastric acidity, kidney & liver toxicity',
-    rootCause: 'Only numbs brain receptors; disc remains pinched',
-    recovery: 'Pain returns the moment medicine wears off',
+    method: "Painkiller Medications",
+    invasive: "Oral pills / Cortisone injections",
+    sideEffects: "Severe gastric acidity, kidney & liver toxicity",
+    rootCause: "Only numbs brain receptors; disc remains pinched",
+    recovery: "Pain returns the moment medicine wears off",
   },
 ];
 
 export default function SciencePage() {
   return (
     <div className="pt-24 bg-[#FAF9F6] min-h-screen">
-      
       {/* Header — Short & Sweet */}
       <section className="py-20 sm:py-28 bg-white border-b border-stone-200/60">
         <div className="max-w-3xl mx-auto px-6 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200/80 text-[11px] font-mono text-stone-600">
-            <ShinyText text="NATURAL DECOMPRESSION &middot; MERIDIAN SCIENCE" speed={4} />
+            <ShinyText
+              text="NATURAL DECOMPRESSION &middot; MERIDIAN SCIENCE"
+              speed={4}
+            />
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-light text-[#1A1A18] tracking-[-0.03em] leading-tight">
-            The science of <span className="font-serif italic font-normal text-stone-500">gentle healing.</span>
+            The science of{" "}
+            <span className="font-serif italic font-normal text-stone-500">
+              gentle healing.
+            </span>
           </h1>
 
           <p className="text-stone-600 text-base sm:text-lg font-light leading-relaxed max-w-xl mx-auto pt-2">
-            &ldquo;Your body is engineered to heal. When pinched nerve roots are gently freed, chronic pain disappears naturally.&rdquo;
+            &ldquo;Your body is engineered to heal. When pinched nerve roots are
+            gently freed, chronic pain disappears naturally.&rdquo;
           </p>
         </div>
       </section>
@@ -54,7 +60,6 @@ export default function SciencePage() {
       {/* 2 Core Principles with clean video stages */}
       <section className="py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 space-y-20">
-          
           {/* Pillar 1 */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6 space-y-4">
@@ -66,10 +71,14 @@ export default function SciencePage() {
               </h2>
               <div className="space-y-3 text-stone-600 text-base font-light leading-relaxed">
                 <p>
-                  Our body operates on continuous bio-electrical impulses along neural pathways. When stress or injury clamps down on muscles, these signals get blocked.
+                  Our body operates on continuous bio-electrical impulses along
+                  neural pathways. When stress or injury clamps down on muscles,
+                  these signals get blocked.
                 </p>
                 <p>
-                  Targeted manual pressure on meridian junction points stimulates micro-circulation, clears stagnation, and lets natural nerve signals fire freely again.
+                  Targeted manual pressure on meridian junction points
+                  stimulates micro-circulation, clears stagnation, and lets
+                  natural nerve signals fire freely again.
                 </p>
               </div>
             </div>
@@ -112,10 +121,14 @@ export default function SciencePage() {
               </h2>
               <div className="space-y-3 text-stone-600 text-base font-light leading-relaxed">
                 <p>
-                  When a lumbar disc bulges, surrounding muscles contract into a tight protective knot, cutting off blood supply and trapping the nerve.
+                  When a lumbar disc bulges, surrounding muscles contract into a
+                  tight protective knot, cutting off blood supply and trapping
+                  the nerve.
                 </p>
                 <p>
-                  Acupressure releases this muscular spasm at the root. With pressure relieved, oxygenated blood floods the nerve, allowing the disc to retract naturally.
+                  Acupressure releases this muscular spasm at the root. With
+                  pressure relieved, oxygenated blood floods the nerve, allowing
+                  the disc to retract naturally.
                 </p>
               </div>
             </div>
@@ -128,7 +141,8 @@ export default function SciencePage() {
                 Comparing Your Options
               </h3>
               <p className="text-stone-600 text-sm font-light">
-                Why patients across Mumbai choose gentle Acupressure over surgery and painkillers.
+                Why patients across Mumbai choose gentle Acupressure over
+                surgery and painkillers.
               </p>
             </div>
 
@@ -147,10 +161,16 @@ export default function SciencePage() {
                   {COMPARISONS.map((row, idx) => (
                     <tr
                       key={idx}
-                      className={idx === 0 ? 'bg-emerald-50/40 font-medium text-stone-900' : 'hover:bg-stone-50/50'}
+                      className={
+                        idx === 0
+                          ? "bg-emerald-50/40 font-medium text-stone-900"
+                          : "hover:bg-stone-50/50"
+                      }
                     >
                       <td className="p-5 sm:p-6 font-medium flex items-center gap-2">
-                        {idx === 0 && <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />}
+                        {idx === 0 && (
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        )}
                         <span>{row.method}</span>
                       </td>
                       <td className="p-5 sm:p-6">{row.invasive}</td>
@@ -174,11 +194,12 @@ export default function SciencePage() {
                 Ready to experience gentle healing?
               </h4>
               <p className="text-stone-500 text-xs sm:text-sm font-light">
-                Consult with Yogesh Sir at Magical Touch for a personalized, non-invasive roadmap.
+                Consult with Yogaysh Lahoti at Magical Touch for a personalized,
+                non-invasive roadmap.
               </p>
             </div>
 
-            <Magnet padding={20} magnetStrength={2.2}>
+            <Magnet padding={20}>
               <a
                 href={whatsappUrl}
                 target="_blank"
@@ -191,10 +212,8 @@ export default function SciencePage() {
               </a>
             </Magnet>
           </SpotlightCard>
-
         </div>
       </section>
-
     </div>
   );
 }

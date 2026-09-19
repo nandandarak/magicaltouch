@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * ShinyText Component from reactbits.dev
@@ -8,7 +8,7 @@ export default function ShinyText({
   text,
   disabled = false,
   speed = 4,
-  className = '',
+  className = "",
 }) {
   const animationDuration = `${speed}s`;
 
@@ -16,11 +16,11 @@ export default function ShinyText({
     <span
       className={`inline-block ${
         disabled
-          ? ''
-          : 'bg-clip-text text-transparent bg-[linear-gradient(120deg,rgba(255,255,255,0.4)_0%,rgba(255,255,255,1)_50%,rgba(255,255,255,0.4)_100%)] bg-[length:200%_100%] animate-shine'
+          ? ""
+          : "bg-clip-text text-slate bg-[linear-gradient(120deg,rgba(255, 255, 255, 0)_0%,rgba(255,255,255,1)_50%,rgba(255,255,255,0)_100%)] bg-[length:200%_100%] animate-shine"
       } ${className}`}
       style={{
-        animationDuration: disabled ? '0s' : animationDuration,
+        animationDuration: disabled ? "0s" : animationDuration,
       }}
     >
       {text}
