@@ -141,7 +141,7 @@ export default function SciencePage() {
                 Comparing Your Options
               </h3>
               <p className="text-stone-600 text-sm font-light">
-                Why patients across Mumbai choose gentle Acupressure over
+                Why patients across Pan India choose gentle Acupressure home visits over
                 surgery and painkillers.
               </p>
             </div>

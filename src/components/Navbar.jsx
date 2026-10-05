@@ -35,11 +35,10 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
           ? "bg-[#FAF9F6]/92 backdrop-blur-md border-b border-stone-200/80 py-3 shadow-xs"
           : "bg-transparent py-5"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 flex items-center justify-between">
         {/* Brand */}
@@ -61,7 +60,7 @@ export default function Navbar() {
               MAAGICAL TOUCH
             </span>
             <span className="text-[10px] text-stone-500 font-light tracking-widest uppercase block">
-              Acupressure &middot; Mumbai Clinic
+              Acupressure &middot; Home Visit (Pan India)
             </span>
           </div>
         </Link>
@@ -73,10 +72,9 @@ export default function Navbar() {
               key={link.path}
               to={link.path}
               className={({ isActive }) =>
-                `px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  isActive
-                    ? "bg-[#1A1A18] text-white shadow-xs"
-                    : "text-stone-600 hover:text-stone-950 hover:bg-stone-100/70"
+                `px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${isActive
+                  ? "bg-[#1A1A18] text-white shadow-xs"
+                  : "text-stone-600 hover:text-stone-950 hover:bg-stone-100/70"
                 }`
               }
             >
@@ -131,8 +129,7 @@ export default function Navbar() {
                 to={link.path}
                 onClick={() => setMobileOpen(false)}
                 className={({ isActive }) =>
-                  `px-4 py-2.5 rounded-xl transition-all ${
-                    isActive ? "bg-[#1A1A18] text-white" : "hover:bg-stone-100"
+                  `px-4 py-2.5 rounded-xl transition-all ${isActive ? "bg-[#1A1A18] text-white" : "hover:bg-stone-100"
                   }`
                 }
               >

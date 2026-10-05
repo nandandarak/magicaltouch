@@ -51,7 +51,7 @@ export default function PersonalFounderNote() {
 
             <div className="space-y-4 text-stone-600 text-base sm:text-lg font-light leading-relaxed">
               <p>
-                When someone walks into my clinic in Mumbai, I don't just see a
+                When I visit a patient at their home, I don't just see a
                 bad back or stiff knee. I see a person who hasn't slept in
                 months &mdash; worried about surgery and exhausted by daily
                 painkillers.
@@ -63,7 +63,7 @@ export default function PersonalFounderNote() {
               </p>
               <p>
                 Whether you want an honest second opinion on your MRI or you're
-                ready to heal &mdash; you are always welcome here.
+                ready to heal &mdash; you are always welcome to consult us for home visits across Pan India.
               </p>
             </div>
 
@@ -93,7 +93,7 @@ export default function PersonalFounderNote() {
 
             <div className="pt-6 border-t border-stone-200/70 flex items-center justify-between text-xs text-stone-400 font-light">
               <span>Yogaysh Lahoti &middot; Acupressure Master</span>
-              <span>10+ Years Clinical Practice &middot; Mumbai</span>
+              <span>10+ Years Practice &middot; Home Visit (Pan India)</span>
             </div>
           </div>
         </div>

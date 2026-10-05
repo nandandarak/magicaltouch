@@ -41,7 +41,7 @@ export default function SleekContact() {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200/80 text-[11px] font-mono text-stone-600">
                 <ShinyText
-                  text="DIRECT INQUIRY &middot; MUMBAI CLINIC"
+                  text="DIRECT INQUIRY &middot; HOME VISIT PAN INDIA"
                   speed={4}
                 />
               </div>
@@ -54,7 +54,7 @@ export default function SleekContact() {
               <p className="text-stone-600 text-base sm:text-lg font-light leading-relaxed max-w-lg">
                 Speak directly with Yogaysh Lahoti to discuss your symptoms,
                 review your medical history, and evaluate non-surgical
-                Acupressure options.
+                Acupressure home visit options.
               </p>
             </div>
 
@@ -100,13 +100,13 @@ export default function SleekContact() {
                 <MapPin className="w-5 h-5 text-stone-600 mt-1 shrink-0" />
                 <div>
                   <span className="text-xs font-mono text-stone-400 uppercase tracking-wider block">
-                    Clinic Location
+                    Service Mode
                   </span>
                   <span className="text-base font-medium text-stone-900 block">
-                    Magical Touch Acupressure Clinic
+                    Magical Touch Acupressure
                   </span>
                   <span className="text-sm text-stone-500 font-light block">
-                    Mumbai, Maharashtra, India
+                    Home Visit (Pan India)
                   </span>
                 </div>
               </div>

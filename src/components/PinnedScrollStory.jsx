@@ -14,12 +14,12 @@ const chapters = [
     title: "Ancient technique for\nmodern chronic problems.",
     body: "Often the rigours of modern life take a toll on health. Not all chronic health issues need painful surgical intervention. Acupressure is a simple, non-invasive, ancient technique to revive, restore, and renew your health without drugs or surgery.",
     points: [
-      "10+ Years of hands-on clinic practice",
+      "10+ Years of hands-on practice",
       "Non-invasive & 100% drug-free",
       "Personalized consultation with Yogaysh Lahoti",
     ],
     stat: "10+ Years",
-    statLabel: "Clinical Practice in Mumbai",
+    statLabel: "Home Visits Across Pan India",
   },
   {
     img: "/clinic_media/magical-touch-backpain.jpg",

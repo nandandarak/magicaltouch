@@ -71,7 +71,7 @@ export default function HeroPinCanvas() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200/80">
               <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
               <span className="text-[11px] font-mono tracking-widest uppercase text-stone font-medium">
-                ACUPRESSURE • ANCIENT SCIENCE • MUMBAI CLINIC
+                ACUPRESSURE • ANCIENT SCIENCE • HOME VISIT PAN INDIA
               </span>
             </div>
 
@@ -89,8 +89,7 @@ export default function HeroPinCanvas() {
             </p>
 
             <p className="text-stone-600 text-base sm:text-lg font-light leading-relaxed max-w-xl">
-              We know how exhausting chronic pain is. For over 10 years in
-              Mumbai, Yogaysh Lahoti has helped patients heal severe sciatica,
+              We know how exhausting chronic pain is. For over 10 years through home visits across Pan India, Yogaysh Lahoti has helped patients heal severe sciatica,
               slip discs, knee degeneration, and trapped nerves — using gentle,
               non-invasive Acupressure meridian science.
             </p>
@@ -124,7 +123,7 @@ export default function HeroPinCanvas() {
           {/* Quiet, Sleek Editorial Footnote with CountUp from React Bits */}
           <div className="pt-6 border-t border-stone-200/70 flex items-center gap-6 text-xs text-stone-600 font-medium">
             <span>
-              <CountUp to={10} suffix="+ Years" duration={1.5} /> in Mumbai
+              <CountUp to={10} suffix="+ Years" duration={1.5} /> Home Visits (Pan India)
             </span>
             <span>&bull;</span>
             <span className="text-stone-500 font-light">100% Non-Invasive</span>

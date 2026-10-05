@@ -85,7 +85,7 @@ export default function HolisticApproach() {
           >
             <Sparkles className="w-3 h-3 text-amber-300" />
             <ShinyText
-              text="HOLISTIC PHILOSOPHY • MUMBAI CLINIC"
+              text="HOLISTIC PHILOSOPHY • HOME VISIT PAN INDIA"
               speed={3.5}
               className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase font-medium text-white"
             />

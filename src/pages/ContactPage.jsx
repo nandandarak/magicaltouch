@@ -39,7 +39,7 @@ export default function ContactPage() {
         <div className="max-w-4xl mx-auto px-6 sm:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-100 border border-stone-200 text-stone-700 text-xs font-semibold uppercase tracking-wider">
             <Stethoscope className="w-3.5 h-3.5 text-stone-800" />
-            <span>Direct Clinical Consultation &middot; Mumbai</span>
+            <span>Direct Consultation &middot; Home Visit Pan India</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-light text-[#1A1A18] tracking-[-0.03em] leading-[1.08]">
@@ -52,7 +52,7 @@ export default function ContactPage() {
           <p className="text-stone-600 text-base sm:text-xl font-light leading-relaxed max-w-2xl mx-auto">
             You don't need to struggle in silence or rush into high-risk
             surgery. Reach out directly to Yogaysh Lahoti for an honest,
-            empathetic clinical evaluation.
+            empathetic clinical evaluation and home visit.
           </p>
         </div>
       </section>
@@ -65,13 +65,13 @@ export default function ContactPage() {
             <div className="lg:col-span-5 space-y-8">
               <div className="space-y-3">
                 <span className="text-xs font-mono uppercase tracking-widest text-stone-400 block">
-                  Clinic Information &middot; Mumbai
+                  Home Visit Care &middot; Pan India
                 </span>
                 <h2 className="text-3xl font-light text-[#1A1A18] tracking-tight">
                   Reach us directly anytime.
                 </h2>
                 <p className="text-stone-600 text-sm sm:text-base font-light leading-relaxed">
-                  Whether you have an emergency spasm or wish to schedule an
+                  Whether you have an emergency spasm or wish to schedule a home visit
                   appointment for an elderly family member, we are ready to
                   assist you.
                 </p>
@@ -128,13 +128,13 @@ export default function ContactPage() {
                   </div>
                   <div className="space-y-1">
                     <span className="text-[11px] font-mono text-stone-400 uppercase tracking-wider block">
-                      Clinic Location
+                      Service Mode
                     </span>
                     <span className="text-sm font-medium text-stone-900 block">
-                      Magical Touch Acupressure Clinic
+                      Magical Touch Acupressure (Home Visit)
                     </span>
                     <span className="text-xs text-stone-500 font-light block">
-                      Mumbai, Maharashtra, India
+                      Home Visit Across Pan India
                     </span>
                   </div>
                 </div>

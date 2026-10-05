@@ -30,7 +30,7 @@ const GALLERY = [
   {
     src: "/images/sanctuary_interior.jpg",
     title: "Quiet Healing Sanctuary",
-    caption: "A calm, unhurried space in Mumbai.",
+    caption: "Comfortable, unhurried treatment at your doorstep across Pan India.",
   },
 ];
 
@@ -42,7 +42,7 @@ export default function AboutPage() {
         <div className="max-w-3xl mx-auto px-6 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200/80 text-[11px] font-mono text-stone-600">
             <ShinyText
-              text="10+ YEARS CLINICAL PRACTICE &middot; MUMBAI"
+              text="10+ YEARS PRACTICE &middot; HOME VISIT PAN INDIA"
               speed={4}
             />
           </div>
@@ -172,14 +172,13 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-12">
           <div className="max-w-2xl mb-12 space-y-2">
             <span className="text-xs font-mono uppercase tracking-widest text-stone-400">
-              Our Sanctuary
+              Home Visit Care
             </span>
             <h2 className="text-3xl sm:text-4xl font-light text-[#1A1A18]">
               Where healing happens.
             </h2>
             <p className="text-stone-600 text-sm font-light">
-              A serene, focused therapeutic space in Mumbai designed for quiet
-              recovery.
+              Professional, focused therapeutic care provided directly at your home across Pan India.
             </p>
           </div>
 

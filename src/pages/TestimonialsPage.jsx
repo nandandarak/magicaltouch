@@ -581,8 +581,8 @@ export default function TestimonialsPage() {
           </h1>
 
           <p className="text-stone-600 text-base sm:text-lg font-light leading-relaxed max-w-xl mx-auto">
-            Real Mumbai patients who faced surgery, lived on painkillers, and
-            found lasting freedom through gentle Acupressure.
+            Real patients across Pan India who faced surgery, lived on painkillers, and
+            found lasting freedom through gentle Acupressure home visits.
           </p>
         </div>
       </section>
@@ -711,7 +711,7 @@ export default function TestimonialsPage() {
                   <div className="pt-4 border-t border-stone-100/80 flex items-center justify-between text-xs text-stone-400">
                     <span className="font-mono">Verified Recovery</span>
                     <span className="text-stone-900 font-medium font-serif italic">
-                      Mumbai, IN
+                      Home Visit (Pan India)
                     </span>
                   </div>
                 </SpotlightCard>

@@ -20,7 +20,7 @@ const SYMPTOMS = [
     timeline: "3–5 sessions",
     surgeryAlternative: "Avoids Spinal Fusion Surgery",
     patientStory:
-      "Avoided spinal surgery after 4 sessions. Walking pain-free again. — Rohit Jain, Mumbai",
+      "Avoided spinal surgery after 4 sessions. Walking pain-free again. — Rohit Jain, Home Visit Patient",
     photo: {
       src: "/images/condition_back_pain.jpg",
       alt: "Patient with lower back pain finding relief",
@@ -35,7 +35,7 @@ const SYMPTOMS = [
     timeline: "4–6 sessions",
     surgeryAlternative: "Avoids Knee Replacement (TKR)",
     patientStory:
-      "Discarded my knee brace of 2 years. I climb stairs freely now. — Kinjal G., Mumbai",
+      "Discarded my knee brace of 2 years. I climb stairs freely now. — Kinjal G., Home Visit Patient",
     photo: {
       src: "/images/condition_knee_pain.jpg",
       alt: "Gentle knee reflexology treatment",
@@ -50,7 +50,7 @@ const SYMPTOMS = [
     timeline: "2–3 sessions",
     surgeryAlternative: "Avoids Injections & Daily Relaxants",
     patientStory:
-      "My constant neck stiffness and dizziness vanished in 3 visits. — Anand M., Mumbai",
+      "My constant neck stiffness and dizziness vanished in 3 visits. — Anand M., Home Visit Patient",
     photo: {
       src: "/images/condition_cervical_neck.jpg",
       alt: "Neck tension being gently released",
@@ -65,7 +65,7 @@ const SYMPTOMS = [
     timeline: "5–8 sessions",
     surgeryAlternative: "Natural Motor Rehabilitation",
     patientStory:
-      "Started walking with a stick just 5 sessions in. Tremors reduced. — Devendra G., Mumbai",
+      "Started walking with a stick just 5 sessions in. Tremors reduced. — Devendra G., Home Visit Patient",
     photo: {
       src: "/images/condition_paralysis_neuro.jpg",
       alt: "Caring therapist supporting patient recovery",
@@ -80,7 +80,7 @@ const SYMPTOMS = [
     timeline: "2–4 sessions",
     surgeryAlternative: "Drug-Free Nervous Reset",
     patientStory:
-      "Reset my sleep and ended 6 years of daily migraine pills. — Priya K., Mumbai",
+      "Reset my sleep and ended 6 years of daily migraine pills. — Priya K., Home Visit Patient",
     photo: {
       src: "/images/holistic_serenity.jpg",
       alt: "Mindfulness and stress relief",

@@ -19,7 +19,7 @@ export default function SleekHero() {
         >
           <span className="w-2 h-2 rounded-full bg-stone-900" />
           <span className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-stone-500">
-            Acupressure &middot; Yoga &middot; Mumbai Clinic
+            Acupressure &middot; Yoga &middot; Home Visit Pan India
           </span>
         </motion.div>
 
@@ -46,7 +46,7 @@ export default function SleekHero() {
 
           <p className="text-stone-600 text-lg sm:text-xl lg:text-2xl font-light max-w-2xl leading-relaxed pt-3">
             Ancient technique of Acupressure for modern chronic problems.
-            Non-invasive, drug-free healing in Mumbai by Yogaysh Lahoti for
+            Non-invasive, drug-free home visit healing across Pan India by Yogaysh Lahoti for
             severe back pain, sciatica, slip disc, and joint disorders.
           </p>
         </motion.div>

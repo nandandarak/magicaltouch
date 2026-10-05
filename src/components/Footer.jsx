@@ -24,7 +24,7 @@ export default function Footer() {
                   MAAGICAL TOUCH
                 </span>
                 <span className="text-[10px] text-stone-500 font-light tracking-widest uppercase block">
-                  Acupressure &middot; Holistic Healing Clinic
+                  Acupressure &middot; Home Visit (Pan India)
                 </span>
               </div>
             </div>
@@ -63,8 +63,8 @@ export default function Footer() {
                 </a>
               </p>
               <p className="flex items-center gap-2">
-                <span className="text-stone-400">Location:</span>
-                <span className="font-medium">Mumbai, Maharashtra, India</span>
+                <span className="text-stone-400">Service:</span>
+                <span className="font-medium">Home Visit (Pan India)</span>
               </p>
             </div>
 
@@ -154,7 +154,7 @@ export default function Footer() {
                   to="/contact"
                   className="hover:text-black transition-colors"
                 >
-                  Contact &amp; Clinic Visit
+                  Contact &amp; Home Visit
                 </Link>
               </li>
             </ul>

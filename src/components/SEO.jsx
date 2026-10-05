@@ -5,34 +5,34 @@ const DEFAULT_IMAGE = "/images/yogesh_sir.jpg";
 
 const ROUTE_METADATA = {
   "/": {
-    title: "Acupressure Clinic in Mumbai | Magical Touch",
+    title: "Acupressure Home Visit (Pan India) | Magical Touch",
     description:
-      "Magical Touch offers non-invasive acupressure consultations in Mumbai for back pain, sciatica, slip disc, knee pain, and mobility concerns.",
+      "Magical Touch offers non-invasive acupressure home visit consultations across Pan India for back pain, sciatica, slip disc, knee pain, and mobility concerns.",
   },
   "/conditions": {
-    title: "Conditions Treated with Acupressure | Magical Touch Mumbai",
+    title: "Conditions Treated with Acupressure | Magical Touch Home Visit Pan India",
     description:
-      "Explore the conditions discussed at Magical Touch, including sciatica, back pain, slip disc, knee pain, arthritis, and mobility concerns.",
+      "Explore the conditions treated at Magical Touch through home visit consultations across Pan India, including sciatica, back pain, slip disc, knee pain, and arthritis.",
   },
   "/science": {
-    title: "How Acupressure Works | Magical Touch Mumbai",
+    title: "How Acupressure Works | Magical Touch Home Visit Pan India",
     description:
-      "Learn how Magical Touch explains acupressure, nerve pressure, mobility, and non-invasive support for chronic pain in Mumbai.",
+      "Learn how Magical Touch explains acupressure, nerve pressure, mobility, and non-invasive support for chronic pain through home visits across Pan India.",
   },
   "/about": {
-    title: "About Yogaysh Lahoti | Magical Touch Acupressure",
+    title: "About Yogaysh Lahoti | Magical Touch Acupressure Home Visit Pan India",
     description:
-      "Meet Yogaysh Lahoti and learn about the approach behind Magical Touch, an acupressure clinic serving patients in Mumbai.",
+      "Meet Yogaysh Lahoti and learn about the approach behind Magical Touch, providing home visit acupressure care across Pan India.",
   },
   "/testimonials": {
-    title: "Patient Stories | Magical Touch Acupressure Mumbai",
+    title: "Patient Stories | Magical Touch Acupressure Home Visit Pan India",
     description:
-      "Read patient stories and experiences shared about acupressure consultations at Magical Touch in Mumbai.",
+      "Read patient stories and experiences shared about acupressure home visit consultations at Magical Touch across Pan India.",
   },
   "/contact": {
-    title: "Contact Magical Touch Acupressure Clinic in Mumbai",
+    title: "Contact Magical Touch Acupressure Home Visit Pan India",
     description:
-      "Contact Magical Touch in Mumbai to ask about an acupressure consultation with Yogaysh Lahoti by phone, email, or WhatsApp.",
+      "Contact Magical Touch to book a home visit acupressure consultation with Yogaysh Lahoti by phone, email, or WhatsApp across Pan India.",
   },
 };
 
@@ -101,11 +101,11 @@ export default function SEO({ path }) {
       email: "magicaltouchmumbai@gmail.com",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Mumbai",
-        addressRegion: "Maharashtra",
+        addressLocality: "Pan India",
+        addressRegion: "India",
         addressCountry: "IN",
       },
-      areaServed: "Mumbai",
+      areaServed: "Pan India",
       founder: {
         "@type": "Person",
         name: "Yogaysh Lahoti",

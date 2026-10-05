@@ -15,11 +15,11 @@ const FAQS = [
   },
   {
     q: "I have an MRI report showing an L4-L5 disc herniation and severe sciatica. Can this really be cured without surgery?",
-    a: "Yes, in the vast majority of cases. Surgeons look at the disc mechanically and recommend cutting it out or fusing vertebrae. But the pain is actually caused by inflammatory nerve compression and muscle clamping around the disc. By unblocking the meridian pathways and restoring nerve conductivity, the surrounding spasm dissipates and the disc re-stabilizes naturally. Over 100+ Mumbai patients have avoided spinal fusion at Magical Touch.",
+    a: "Yes, in the vast majority of cases. Surgeons look at the disc mechanically and recommend cutting it out or fusing vertebrae. But the pain is actually caused by inflammatory nerve compression and muscle clamping around the disc. By unblocking the meridian pathways and restoring nerve conductivity, the surrounding spasm dissipates and the disc re-stabilizes naturally. Over 100+ patients have avoided spinal fusion at Magical Touch.",
   },
   {
     q: "My elderly mother has severe knee osteoarthritis and was advised total knee replacement. Is Acupressure safe for senior citizens?",
-    a: "It is one of the safest and gentlest therapies available for senior citizens. We have treated dozens of mothers, fathers, and grandparents in Mumbai who could barely walk or climb steps. Because Acupressure is 100% natural with zero medication, there are no risks of drug interactions, blood pressure spikes, or surgical anesthesia complications.",
+    a: "It is one of the safest and gentlest therapies available for senior citizens. We have treated dozens of mothers, fathers, and grandparents across India who could barely walk or climb steps. Because Acupressure is 100% natural with zero medication, there are no risks of drug interactions, blood pressure spikes, or surgical anesthesia complications.",
   },
   {
     q: "How many sessions will I need before I see real progress?",

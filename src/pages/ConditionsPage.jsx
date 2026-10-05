@@ -130,7 +130,7 @@ const CONDITIONS = [
   },
   {
     id: "acidity",
-    name: "Hyper Acidity & Navi Shift",
+    name: "Hyper Acidity & Navel Shift",
     category: "Internal Organs",
     shortRelief: "Burning chest reflux, chronic indigestion, and gut distress.",
     howItHeals:
@@ -187,11 +187,10 @@ export default function ConditionsPage() {
               <Magnet key={cat} padding={10}>
                 <button
                   onClick={() => setActiveCat(cat)}
-                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all active:scale-95 cursor-pointer ${
-                    activeCat === cat
+                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all active:scale-95 cursor-pointer ${activeCat === cat
                       ? "bg-[#1A1A18] text-white shadow-xs"
                       : "bg-stone-100 text-stone-600 hover:bg-stone-200/70"
-                  }`}
+                    }`}
                 >
                   {cat}
                 </button>

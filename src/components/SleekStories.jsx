@@ -40,7 +40,7 @@ export default function SleekStories() {
         {/* Section Header */}
         <div className="max-w-3xl mb-16 sm:mb-20 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200/80 text-[11px] font-mono text-stone-600">
-            <ShinyText text="VERIFIED MUMBAI PATIENT RECOVERIES" speed={4} />
+            <ShinyText text="VERIFIED PATIENT RECOVERIES PAN INDIA" speed={4} />
           </div>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-light text-[#1A1A18] tracking-[-0.03em] leading-tight">
             Stories of{" "}
@@ -49,19 +49,19 @@ export default function SleekStories() {
             </span>
           </h2>
           <p className="text-stone-600 text-base sm:text-lg font-light leading-relaxed">
-            Real stories from Mumbai residents who regained mobility after
+            Real stories from patients across Pan India who regained mobility after
             advised surgeries or painkillers failed.
           </p>
         </div>
 
-        {/* 2-Column Grid: Featured Mumbai Recovery Image + Quotes List */}
+        {/* 2-Column Grid: Featured Home Visit Recovery Image + Quotes List */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Marine Drive Vitality Photo with 3D Tilt */}
+          {/* Left Column: Patient Vitality Photo with 3D Tilt */}
           <div className="lg:col-span-5 relative flex justify-center">
             <TiltedCard
               imageSrc="/images/patient_vitality.jpg"
-              altText="Patient walking freely on Marine Drive Mumbai"
-              captionText="&ldquo;I got my active life back.&rdquo; &mdash; Marine Drive, Mumbai"
+              altText="Patient walking freely after acupressure therapy"
+              captionText="&ldquo;I got my active life back.&rdquo; &mdash; Home Visit Recovery"
               containerWidth="100%"
               containerHeight="480px"
               imageHeight="100%"
@@ -97,7 +97,7 @@ export default function SleekStories() {
                         {story.patient}
                       </h4>
                       <span className="text-xs text-stone-500 font-light">
-                        {story.condition} &middot; Mumbai
+                        {story.condition} &middot; Home Visit
                       </span>
                     </div>
 

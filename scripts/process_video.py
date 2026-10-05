@@ -1,8 +1,12 @@
 import subprocess
 import os
-import imageio_ffmpeg
+import shutil
 
-ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+try:
+    import imageio_ffmpeg
+    ffmpeg_exe = imageio_ffmpeg.get_ffmpeg_exe()
+except ImportError:
+    ffmpeg_exe = shutil.which("ffmpeg") or "ffmpeg"
 input_video = r"D:\magicaltouch\Video Project 8.mp4"
 output_dir = r"D:\magicaltouch\public\videos"
 os.makedirs(output_dir, exist_ok=True)
